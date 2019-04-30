@@ -13,9 +13,9 @@ use LinCmsTp5\exception\group\GroupException;
 use think\Db;
 use think\Exception;
 
-class Group extends Model
+class LinGroup extends Model
 {
-    protected $table = 'lin_group';
+//    protected $table = 'lin_group';
     /**
      * @param $id
      * @return array|\PDOStatement|string|\think\Model
@@ -36,7 +36,7 @@ class Group extends Model
             ]);
         }
 
-        $auths = Auth::getAuthByGroupID($group['id']);
+        $auths = LinAuth::getAuthByGroupID($group['id']);
 
         $group['auths'] = empty($auths) ? [] : split_modules($auths);;
 
@@ -65,7 +65,7 @@ class Group extends Model
 
         Db::startTrans();
         try {
-            $group = (new Group())->allowField(true)->create($params);
+            $group = (new LinGroup())->allowField(true)->create($params);
 
             $auths = [];
             foreach ($params['auths'] as $value) {
@@ -74,7 +74,7 @@ class Group extends Model
                 array_push($auths, $auth);
             }
 
-            (new Auth())->saveAll($auths);
+            (new LinAuth())->saveAll($auths);
             Db::commit();
         } catch (Exception $ex) {
             Db::rollback();
