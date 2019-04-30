@@ -9,11 +9,10 @@
 namespace LinCmsTp5\model;
 
 use think\Model;
-use think\Exception;
 
-class Log extends Model
+class LinLog extends Model
 {
-    protected $table = 'lin_log';
+//    protected $table = 'lin_log';
     protected $createTime = 'time';
     protected $updateTime = false;
     protected $autoWriteTimestamp = 'datetime';

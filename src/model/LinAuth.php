@@ -10,11 +10,10 @@ namespace LinCmsTp5\model;
 
 use think\Model;
 
-class Auth extends Model
+class LinAuth extends Model
 {
     protected $hidden = ['id'];
-    protected $table = 'lin_auth';
-
+//    protected $table = 'lin_auth';
 
     /**
      * @param $id

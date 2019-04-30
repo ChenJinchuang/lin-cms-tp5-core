@@ -13,14 +13,14 @@ use LinCmsTp5\exception\user\UserException;
 use think\Exception;
 use think\model\concern\SoftDelete;
 
-class User extends Model
+class LinUser extends Model
 {
     use SoftDelete;
 
     protected $deleteTime = 'delete_time';
     protected $autoWriteTimestamp = 'datetime';
     protected $hidden = ['delete_time', 'update_time'];
-    protected $table = 'lin_user';
+//    protected $table = 'lin_user';
 
     /**
      * @param $params
@@ -64,7 +64,7 @@ class User extends Model
             ->field('password,delete_time,update_time', true)
             ->paginate($params['count'], false, ['page' => $params['page']])
             ->each(function ($item, $key) {
-                $group = Group::get($item['group_id']);
+                $group = LinGroup::get($item['group_id']);
                 $item['group_name'] = $group['name'];
                 return $item;
             });
@@ -82,7 +82,7 @@ class User extends Model
      */
     public static function resetPassword($params)
     {
-        $user = User::find($params['uid']);
+        $user = LinUser::find($params['uid']);
         if (!$user) {
             throw new UserException();
         }
@@ -97,12 +97,12 @@ class User extends Model
      */
     public static function deleteUser($uid)
     {
-        $user = User::find($uid);
+        $user = LinUser::find($uid);
         if (!$user) {
             throw new UserException();
         }
 
-        User::destroy($uid);
+        LinUser::destroy($uid);
     }
 
     /**
@@ -114,7 +114,7 @@ class User extends Model
      */
     public static function updateUser($params)
     {
-        $user = User::find($params['uid']);
+        $user = LinUser::find($params['uid']);
         if (!$user) {
             throw new UserException();
         }
@@ -174,7 +174,7 @@ class User extends Model
             throw new UserException();
         }
 
-        $auths = Auth::getAuthByGroupID($user['group_id']);
+        $auths = LinAuth::getAuthByGroupID($user['group_id']);
 
         $auths = empty($auths) ? [] : split_modules($auths);
 
