@@ -6,8 +6,7 @@
  * Time: 21:22
  */
 
-namespace app\api\validate;
-
+namespace LinCmsTp5\validate;
 
 use LinCmsTp5\exception\ParameterException;
 use think\facade\Request;
