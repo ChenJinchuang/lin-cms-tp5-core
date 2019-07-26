@@ -54,12 +54,14 @@ class ExceptionHandler extends Handle
     {
         Log::init([
             'type' => 'File',
-            'path' => '',
-            'level' => ['error'],
+            'path' => '../logs',
+            'apart_level' => ['error'],
+            'max_files' =>  30,
             'close' => false
         ]);
 
-        Log::record($e->getMessage(), 'error');
+        Log::write($e->getMessage(), 'error');
+        log::close();
 
     }
 }
