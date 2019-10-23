@@ -11,6 +11,7 @@ namespace LinCmsTp5\exception;
 use think\exception\Handle;
 use think\facade\Log;
 use think\facade\Request;
+use think\facade\Env;
 
 class ExceptionHandler extends Handle
 {
@@ -54,12 +55,14 @@ class ExceptionHandler extends Handle
     {
         Log::init([
             'type' => 'File',
-            'path' => '',
-            'level' => ['error'],
+            'path' => Env::get('root_path').'/runtime/log_error',
+            'apart_level' => ['error'],
+            'max_files' =>  30,
             'close' => false
         ]);
 
-        Log::record($e->getMessage(), 'error');
+        Log::write($e->getMessage(), 'error');
+        log::close();
 
     }
 }
